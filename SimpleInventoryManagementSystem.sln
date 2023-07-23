@@ -5,6 +5,10 @@ VisualStudioVersion = 17.6.33829.357
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleInventoryManagementSystem", "SimpleInventoryManagementSystem.csproj", "{97B1F373-B33A-47CE-93FA-46B426E1BFC1}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{842C0C63-9979-4C8C-975E-D4049667C712}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InventoryTest", "..\AddTest\InventoryTest.csproj", "{E310FFA3-7108-4A46-A507-0BB7138E8940}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,9 +19,16 @@ Global
 		{97B1F373-B33A-47CE-93FA-46B426E1BFC1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{97B1F373-B33A-47CE-93FA-46B426E1BFC1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{97B1F373-B33A-47CE-93FA-46B426E1BFC1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E310FFA3-7108-4A46-A507-0BB7138E8940}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E310FFA3-7108-4A46-A507-0BB7138E8940}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E310FFA3-7108-4A46-A507-0BB7138E8940}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E310FFA3-7108-4A46-A507-0BB7138E8940}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{E310FFA3-7108-4A46-A507-0BB7138E8940} = {842C0C63-9979-4C8C-975E-D4049667C712}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D246C738-3C4C-44A5-A0A7-9EBA58FDEB7D}

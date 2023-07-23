@@ -13,7 +13,7 @@ internal class App
             + "add <product name> <price> <quantity>: to add new product \n" +
             "edit <name>: to edit an existing product \n" +
             "search <product name>: to search about a product \n" +
-            "view all: to view all product \n" +
+            "view: to view all product \n" +
             "delete <procudt name>: to delete a product ";
         String? command = String.Empty;
         Console.WriteLine("Welcome to Simple Inventory Management System! \n \n" + commandFormat);

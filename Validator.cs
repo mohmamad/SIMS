@@ -11,14 +11,20 @@ namespace SimpleInventoryManagementSystem
     {
         public static Boolean validate(String command)
         {
-            HashSet<String> commands = new HashSet<string>() { "add", "edit", "search", "view all", "delete", "exist" };
-            try{
-                int.Parse(command.Split(" ")[3]);
-                int.Parse(command.Split(" ")[2]);
+            HashSet<String> commands = new HashSet<string>() { "add", "edit", "search", "view", "delete", "exist" };
+            if (command.Split(" ")[0] == "add")
+            {
+                try
+                {
+                    int.Parse(command.Split(" ")[3]);
+                    int.Parse(command.Split(" ")[2]);
+                }
+                catch (Exception e)
+                {
+                    return false;
+                }
             }
-            catch(Exception e){
-                return false;
-            }
+            
             if (command == null)
             {
                 return false;
@@ -40,9 +46,13 @@ namespace SimpleInventoryManagementSystem
                 product.name = command.Split(" ")[1];
                 product.price = int.Parse(command.Split(" ")[2]);
                 product.quantity = int.Parse(command.Split(" ")[3]);
-               
+                Console.WriteLine(Inventory.Add(product));
             }
-            Console.WriteLine(Inventory.Add(product));
+            else if (command.Split(" ")[0] == "view")
+            {
+                Inventory.ViewAll();
+            }
+            
         }
     }
 }

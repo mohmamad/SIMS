@@ -46,5 +46,21 @@ namespace SimpleInventoryManagementSystem
             }
             
         }
+
+    public static void ViewAll()
+        {
+            const String Header = "Name | Price | Quantity";
+            Console.WriteLine(Header);
+            Console.WriteLine("________________________________________________________________________");
+            foreach (Product product in products) 
+            { 
+                Console.WriteLine(product.ToString());
+                Console.WriteLine("________________________________________________________________________");
+            }
+            
+        }
+
+
+
     }
 }
