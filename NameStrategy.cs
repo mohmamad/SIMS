@@ -6,9 +6,13 @@ using System.Threading.Tasks;
 
 namespace SimpleInventoryManagementSystem
 {
-    public class NameStrategy : IExistsStrategy
+    /// <summary>
+    /// NameStrategy class extendes IEqualsStrategy interface to implement equals method,
+    /// Which compares based on name.
+    /// </summary>
+    public class NameStrategy : IEqualsStrategy
     {
-        public bool Exists(Product p1 , Product p2)
+        public bool Equals(Product p1 , Product p2)
         {
             return p1.name == p2.name;
         }

@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace SimpleInventoryManagementSystem
 {
+    /// <summary>
+    /// Inventory class to save a list of products, and implement the methods applied on that list.
+    /// </summary>
     public static class Inventory
     {
         public static List<Product> products = new List<Product>();
@@ -18,12 +21,13 @@ namespace SimpleInventoryManagementSystem
             List<Product> foundProducts = new List<Product>();
             foreach(Product productInList in  products)
             {
-                if(nameSearch.Exists(productInList, productToSearch))
+                if(nameSearch.Equals(productInList, productToSearch))
                 {
                    
                     foundProducts.Add(productInList);
                 }
             }
+
             return foundProducts;
         }
 
@@ -49,22 +53,29 @@ namespace SimpleInventoryManagementSystem
 
     public static String ViewAll()
         {
-            //return value only used for testing
-            String allProducts = String.Empty;  
-            const String Header = "Name | Price | Quantity";
-            allProducts = $"{Header}\n________________________________________________________________________\n";
-            Console.WriteLine(Header);
-            Console.WriteLine("________________________________________________________________________");
-            foreach (Product product in products) 
+            String failed = "Products list is empty.";
+            if(products.Count != 0)
             {
-                allProducts += $"{product.ToString()}\n________________________________________________________________________\n";
-                Console.WriteLine(product.ToString());
+                const String Header = "Name | Price | Quantity";
+
+                Console.WriteLine(Header);
                 Console.WriteLine("________________________________________________________________________");
+                foreach (Product product in products)
+                {
+                    Console.WriteLine(product.ToString());
+                    Console.WriteLine("________________________________________________________________________");
+                }
+                return String.Empty;
             }
-            return allProducts;
+            else
+            {
+                return failed;
+            }
+            
+           
         }
 
-    public static void Edit(Product product)
+    public static String Edit(Product product)
         {
             const String success = "Edit was successful";
             const String failed = "Edit failed: product may not exist";
@@ -72,28 +83,28 @@ namespace SimpleInventoryManagementSystem
             {
                 Search(product.name)[0].price = product.price;
                 Search(product.name)[0].quantity = product.quantity;
-                Console.WriteLine(success);
+                return success;
             }
             else
             {
-                Console.WriteLine(failed);
+                return failed;
             }
            
            
         }
 
-    public static void Delete(String name)
+    public static String Delete(String name)
         {
             const String success = "Product deleted successfully";
             const String failed = "delete failed: product may not exist";
             if (Search(name).Count != 0)
             {
                 products.Remove(Search(name)[0]);
-                Console.WriteLine(success);
+                return success;
             }
             else
             {
-                Console.WriteLine(failed);
+                return failed;
             }
         }
         

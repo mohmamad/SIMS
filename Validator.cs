@@ -4,17 +4,23 @@ using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Reflection.PortableExecutable;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace SimpleInventoryManagementSystem
 {
+    /// <summary>
+    /// Validator class has two methods validate and excute.
+    /// </summary>
+    /// <remarks>
+    /// The Validate method makes sure that the given command is correct.
+    /// The excute method excutes calls the correct method from Inventory gives feedback to the user.
+    /// </remarks>
     public static class Validator
     {
         public static Boolean validate(String command)
         {
-
-           // HashSet<String> commands = new HashSet<string>() { "add", "edit", "search", "view", "delete", "exist" };
             if (command == null)
             {
                 return false;
@@ -26,7 +32,7 @@ namespace SimpleInventoryManagementSystem
                     try
                     {
                         int.Parse(command.Split(" ")[3]);
-                        int.Parse(command.Split(" ")[2]);
+                        double.Parse(command.Split(" ")[2]);
                     }
                     catch (Exception e)
                     {
@@ -42,7 +48,7 @@ namespace SimpleInventoryManagementSystem
                     try
                     {
                         int.Parse(command.Split(" ")[3]);
-                        int.Parse(command.Split(" ")[2]);
+                        double.Parse(command.Split(" ")[2]);
                     }
                     catch (Exception e)
                     {
@@ -98,21 +104,42 @@ namespace SimpleInventoryManagementSystem
             {
                 case "add":
                     product.name = command.Split(" ")[1].ToLower();
-                    product.price = int.Parse(command.Split(" ")[2]);
+                    product.price = double.Parse(command.Split(" ")[2]);
                     product.quantity = int.Parse(command.Split(" ")[3]);
                     Console.WriteLine(Inventory.Add(product));
                     break;
                 case "view":
-                    Inventory.ViewAll();
+                    Console.WriteLine(Inventory.ViewAll());
                     break;
                 case "edit":
                     product.name = command.Split(" ")[1].ToLower();
-                    product.price = int.Parse(command.Split(" ")[2]);
+                    product.price = double.Parse(command.Split(" ")[2]);
                     product.quantity = int.Parse(command.Split(" ")[3]);
-                    Inventory.Edit(product);
+                    Console.WriteLine(Inventory.Edit(product));
                     break;
                 case "delete":
-                    Inventory.Delete(command.Split(" ")[1].ToLower());
+                    Console.WriteLine(Inventory.Delete(command.Split(" ")[1].ToLower()));
+                    break;
+                case "search":
+                    
+                    if(Inventory.Search(command.Split(" ")[1].ToLower()).Count != 0)
+                    {
+                        //print the found products
+                        const String Header = "Name | Price | Quantity";
+                        Console.WriteLine(Header);
+                        Console.WriteLine("________________________________________________________________________");
+                        foreach (Product foundProduct in Inventory.Search(command.Split(" ")[1].ToLower()))
+                        {
+                            Console.WriteLine(foundProduct.ToString());
+                            Console.WriteLine("________________________________________________________________________");
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("Product Not Found: product may not exist. \n" +
+                            "Make sure you wrote the correct name.");
+                    }
+                    
                     break;
             }
  
