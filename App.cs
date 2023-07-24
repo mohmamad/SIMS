@@ -18,7 +18,8 @@ internal class App
             "* edit <name> <new name> <new price> <new quantity>: to edit an existing product. \n" +
             "* search <product name>: to search about a product. \n" +
             "* view: to view all products. \n" +
-            "* delete <procudt name>: to delete a product. ";
+            "* delete <procudt name>: to delete a product./n" +
+            "exit: to exit the programe.";
         String? command = String.Empty;
         Console.WriteLine("Welcome to Simple Inventory Management System! \n \n" + commandFormat);
         while (command != "exit") 

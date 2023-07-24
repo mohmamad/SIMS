@@ -63,14 +63,15 @@ namespace SimpleInventoryManagementSystem
             const String success = "Edit was successful";
             const String failed = "Edit failed: product may not exist";
             const String nameExists = "Edit failed: product name already exist";
-
+            
             Product product = new Product();
-            product = Search(name)[0];
+            
             //to check if the product exists.
             if (Search(name).Count != 0)
             {
-                //to check if the new name already exists.
-                if(Search(newName).Count == 0)
+                product = Search(name)[0];
+                //to check if the new name already exists on a diiferent product.
+                if (Search(newName).Count == 0 || (Search(newName).Count > 0 && name == newName))
                 {
                     Search(name)[0].price = newPrice;
                     Search(name)[0].quantity = newQuantity;
