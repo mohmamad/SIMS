@@ -81,6 +81,21 @@ namespace SimpleInventoryManagementSystem
            
            
         }
+
+    public static void Delete(String name)
+        {
+            const String success = "Product deleted successfully";
+            const String failed = "delete failed: product may not exist";
+            if (Search(name).Count != 0)
+            {
+                products.Remove(Search(name)[0]);
+                Console.WriteLine(success);
+            }
+            else
+            {
+                Console.WriteLine(failed);
+            }
+        }
         
 
 

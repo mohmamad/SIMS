@@ -111,6 +111,9 @@ namespace SimpleInventoryManagementSystem
                     product.quantity = int.Parse(command.Split(" ")[3]);
                     Inventory.Edit(product);
                     break;
+                case "delete":
+                    Inventory.Delete(command.Split(" ")[1].ToLower());
+                    break;
             }
  
         }
