@@ -15,7 +15,7 @@ internal class App
     {
         const String commandFormat = "Here are the commands you can use: \n"
             + "* add <product name> <price> <quantity>: to add new product. \n" +
-            "* edit <name> <new price> <new quantity>: to edit an existing product. \n" +
+            "* edit <name> <new name> <new price> <new quantity>: to edit an existing product. \n" +
             "* search <product name>: to search about a product. \n" +
             "* view: to view all products. \n" +
             "* delete <procudt name>: to delete a product. ";
@@ -24,16 +24,10 @@ internal class App
         while (command != "exit") 
         {
             command = Console.ReadLine();
-            if (!Validator.validate(command))
-            {
-                Console.WriteLine("Please write the correct command format. \n" + commandFormat);
-            }
-            else
-            {
-                Validator.ExcuteCommand(command);
-            }
-
-            
+            if (!Validator.validate(command)) Console.WriteLine("Please write the correct command format. \n" + commandFormat);
+           
+            else Validator.ExcuteCommand(command);
+          
         }
     }
 

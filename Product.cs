@@ -18,13 +18,9 @@ namespace SimpleInventoryManagementSystem
         public override string ToString()
         {
             char[] name = this.name.ToArray();
-            char capital = name[0];
-            capital = char.ToUpper(capital);
-            name[0] = capital;
-            String capitalizedName = new string(name); 
-
-             
-            return $"{capitalizedName} | {this.price} | {this.quantity}" ;
+            name[0] = char.ToUpper(name[0]);
+           
+            return $"{new String(name)} | {this.price} | {this.quantity}" ;
         }
         public String name { get; set; }
         public double price { get; set; }
