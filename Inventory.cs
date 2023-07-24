@@ -33,7 +33,7 @@ namespace SimpleInventoryManagementSystem
     public static String Add(Product product)
         {
             const String success = "Product added successfully";
-            const String failed = "Product already exists";
+            const String failed = "add failed: Product may already exist";
             
             if(Search(product.name).Count == 0)
             {
@@ -47,19 +47,41 @@ namespace SimpleInventoryManagementSystem
             
         }
 
-    public static void ViewAll()
+    public static String ViewAll()
         {
+            //return value only used for testing
+            String allProducts = String.Empty;  
             const String Header = "Name | Price | Quantity";
+            allProducts = $"{Header}\n________________________________________________________________________\n";
             Console.WriteLine(Header);
             Console.WriteLine("________________________________________________________________________");
             foreach (Product product in products) 
-            { 
+            {
+                allProducts += $"{product.ToString()}\n________________________________________________________________________\n";
                 Console.WriteLine(product.ToString());
                 Console.WriteLine("________________________________________________________________________");
             }
-            
+            return allProducts;
         }
 
+    public static void Edit(Product product)
+        {
+            const String success = "Edit was successful";
+            const String failed = "Edit failed: product may not exist";
+            if(Search(product.name).Count != 0)
+            {
+                Search(product.name)[0].price = product.price;
+                Search(product.name)[0].quantity = product.quantity;
+                Console.WriteLine(success);
+            }
+            else
+            {
+                Console.WriteLine(failed);
+            }
+           
+           
+        }
+        
 
 
     }

@@ -12,7 +12,14 @@ namespace SimpleInventoryManagementSystem
     {
         public override string ToString()
         {
-            return $"{this.name} | {this.price} | {this.quantity}" ;
+            char[] name = this.name.ToArray();
+            char capital = name[0];
+            capital = char.ToUpper(capital);
+            name[0] = capital;
+            String capitalizedName = new string(name); 
+
+             
+            return $"{capitalizedName} | {this.price} | {this.quantity}" ;
         }
         public String name { get; set; }
         public int price { get; set; }
