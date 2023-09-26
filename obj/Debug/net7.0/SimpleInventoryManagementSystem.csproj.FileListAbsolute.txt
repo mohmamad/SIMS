@@ -13,3 +13,10 @@ C:\Users\GoldenTech\Desktop\study\intern\C#\exercise\SimpleInventoryManagementSy
 C:\Users\GoldenTech\Desktop\study\intern\C#\exercise\SimpleInventoryManagementSystem\obj\Debug\net7.0\SimpleInventoryManagementSystem.pdb
 C:\Users\GoldenTech\Desktop\study\intern\C#\exercise\SimpleInventoryManagementSystem\obj\Debug\net7.0\SimpleInventoryManagementSystem.genruntimeconfig.cache
 C:\Users\GoldenTech\Desktop\study\intern\C#\exercise\SimpleInventoryManagementSystem\obj\Debug\net7.0\ref\SimpleInventoryManagementSystem.dll
+C:\Users\GoldenTech\Desktop\study\intern\C#\exercise\SimpleInventoryManagementSystem\bin\Debug\net7.0\System.Data.SqlClient.dll
+C:\Users\GoldenTech\Desktop\study\intern\C#\exercise\SimpleInventoryManagementSystem\bin\Debug\net7.0\runtimes\win-arm64\native\sni.dll
+C:\Users\GoldenTech\Desktop\study\intern\C#\exercise\SimpleInventoryManagementSystem\bin\Debug\net7.0\runtimes\win-x64\native\sni.dll
+C:\Users\GoldenTech\Desktop\study\intern\C#\exercise\SimpleInventoryManagementSystem\bin\Debug\net7.0\runtimes\win-x86\native\sni.dll
+C:\Users\GoldenTech\Desktop\study\intern\C#\exercise\SimpleInventoryManagementSystem\bin\Debug\net7.0\runtimes\unix\lib\netcoreapp2.1\System.Data.SqlClient.dll
+C:\Users\GoldenTech\Desktop\study\intern\C#\exercise\SimpleInventoryManagementSystem\bin\Debug\net7.0\runtimes\win\lib\netcoreapp2.1\System.Data.SqlClient.dll
+C:\Users\GoldenTech\Desktop\study\intern\C#\exercise\SimpleInventoryManagementSystem\obj\Debug\net7.0\SimpleInventoryManagementSystem.csproj.CopyComplete

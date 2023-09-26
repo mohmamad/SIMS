@@ -1,14 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Diagnostics;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Reflection.PortableExecutable;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SimpleInventoryManagementSystem
+﻿namespace SimpleInventoryManagementSystem
 {
     /// <summary>
     /// Validator class has two methods validate and excute.
@@ -22,8 +12,8 @@ namespace SimpleInventoryManagementSystem
         public static Boolean validate(String command)
         {
             if (command == null) return false;
-    
-            switch(command.Split(" ")[0])
+
+            switch (command.Split(" ")[0])
             {
                 case "add":
                     // to check the correctness of the price quantity inputs.
@@ -38,10 +28,10 @@ namespace SimpleInventoryManagementSystem
                     }
                     // to catch if the command given have more attributes than its supposed.
                     if (command.Split(" ").Length > 4) return false;
-                   
+
                     break;
                 case "edit":
-                   
+
                     try
                     {
                         int.Parse(command.Split(" ")[4]);
@@ -49,13 +39,13 @@ namespace SimpleInventoryManagementSystem
                     }
                     catch (Exception e)
                     {
-                        
+
                         return false;
                     }
                     if (command.Split(" ").Length > 5) return false;
-                  
+
                     break;
-                case "search":  if (command.Split(" ").Length > 2) return false; break;
+                case "search": if (command.Split(" ").Length > 2) return false; break;
 
                 case "view": if (command.Split(" ").Length > 1) return false; break;
 
@@ -67,15 +57,15 @@ namespace SimpleInventoryManagementSystem
 
             }
             return true;
-           
+
         }
 
         public static void ExcuteCommand(string command)
         {
-            
+
             Product product = new Product();
-           
-            switch(command.Split(" ")[0])
+
+            switch (command.Split(" ")[0])
             {
                 case "add":
                     product.name = command.Split(" ")[1].ToLower();
@@ -83,26 +73,26 @@ namespace SimpleInventoryManagementSystem
                     product.quantity = int.Parse(command.Split(" ")[3]);
                     Console.WriteLine(Inventory.Add(product));
                     break;
-                case "view":  Console.WriteLine(Inventory.ViewAll()); break;
+                case "view": Console.WriteLine(Inventory.ViewAll()); break;
 
 
-                case "edit": 
-                    Console.WriteLine(Inventory.Edit(command.Split(" ")[1] , command.Split(" ")[2] , double.Parse(command.Split(" ")[3]) , int.Parse(command.Split(" ")[4]))); 
+                case "edit":
+                    Console.WriteLine(Inventory.Edit(command.Split(" ")[1], command.Split(" ")[2], double.Parse(command.Split(" ")[3]), int.Parse(command.Split(" ")[4])));
                     break;
 
                 case "delete": Console.WriteLine(Inventory.Delete(command.Split(" ")[1].ToLower())); break;
 
                 case "search":
-                    
-                    if(Inventory.Search(command.Split(" ")[1].ToLower()).Count != 0)
+
+                    if (Inventory.Search(command.Split(" ")[1].ToLower()).Count != 0)
                     {
                         //print the found products
                         const String Header = "Name | Price | Quantity";
                         Console.WriteLine(Header);
                         Console.WriteLine("________________________________________________________________________");
-                        foreach (Product foundProduct in Inventory.Search(command.Split(" ")[1].ToLower()))
+                        foreach (string foundProduct in Inventory.Search(command.Split(" ")[1].ToLower()))
                         {
-                            Console.WriteLine(foundProduct.ToString());
+                            Console.WriteLine(foundProduct);
                             Console.WriteLine("________________________________________________________________________");
                         }
                     }
@@ -110,7 +100,7 @@ namespace SimpleInventoryManagementSystem
                     break;
 
             }
- 
+
         }
     }
 }

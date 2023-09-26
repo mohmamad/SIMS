@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection.Metadata.Ecma335;
+﻿using System.Data.SqlClient;
+using System.Runtime.Serialization;
 using System.Text;
-using System.Threading.Tasks;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace SimpleInventoryManagementSystem
 {
@@ -13,89 +11,166 @@ namespace SimpleInventoryManagementSystem
     public static class Inventory
     {
         public static List<Product> products = new List<Product>();
-
-        public static List<Product> Search(String value)
+        static string connectionString = "Server=DESKTOP-P1OAHG7\\MSSQLSERVER06;Database=SIMS;Integrated Security=True;";
+        public static SqlConnection connection = new SqlConnection(connectionString);
+        public static List<string> Search(string value)
         {
-            Product productToSearch = new Product() {name =  value};
-            NameStrategy nameSearch = new NameStrategy();
-            List<Product> foundProducts = new List<Product>();
-            foreach(Product productInList in  products)
+            StringBuilder foundData = new StringBuilder();
+            string searchQuery = $"select * from Products where productName = '{value}'";
+            List<string> foundProducts = new List<string>();
+            try
             {
-                if(nameSearch.Equals(productInList, productToSearch)) foundProducts.Add(productInList);              
+                connection.Open();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error: " + ex.Message);
             }
 
+            SqlCommand command = new SqlCommand(searchQuery, connection);
+
+            SqlDataReader reader = command.ExecuteReader();
+            while (reader.Read())
+            {
+                foundData.Append(reader["productName"].ToString() + " ");
+                foundData.Append(reader["price"].ToString() + " ");
+                foundData.AppendLine(reader["quantity"].ToString());
+                foundProducts.Add(foundData.ToString());
+            }
+            connection.Close();
             return foundProducts;
         }
 
-    public static String Add(Product product)
+        public static string Add(Product product)
         {
-            const String success = "Product added successfully";
-            const String failed = "add failed: Product may already exist";
-            
-            if(Search(product.name).Count == 0) { products.Add(product); return success; }
-
-            else return failed;
-        }
-
-    public static String ViewAll()
-        {
-            String failed = "Products list is empty.";
-            if(products.Count != 0)
+            const string success = "Product added successfully";
+            const string failed = "add failed: Product may already exist";
+            string insertQuery = $"insert into Products (productName, price, quantity) values ('{product.name}',{product.price},{product.quantity}) ";
+            try
             {
-                const String Header = "Name | Price | Quantity";
+                connection.Open();
 
-                Console.WriteLine(Header);
-                Console.WriteLine("________________________________________________________________________");
-                foreach (Product product in products)
-                {
-                    Console.WriteLine(product.ToString());
-                    Console.WriteLine("________________________________________________________________________");
-                }
-                return String.Empty;
             }
-            else return failed;
-  
+            catch (Exception ex)
+            {
+               return "Error: " + ex.Message;
+            }
+
+            try
+            {
+                SqlCommand command = new SqlCommand(insertQuery, connection);
+                int rowsAffected = command.ExecuteNonQuery();
+                connection.Close();
+                return success;
+            }
+            catch (Exception ex)
+            {
+                connection.Close();
+                return failed;
+            }
+            
+            
         }
 
-    public static String Edit(String name , String newName , double newPrice , int newQuantity)
+        public static string ViewAll()
+        {
+            string failed = "Products list is empty.";
+            string query = "select * from Products";
+            StringBuilder data = new StringBuilder();
+            try
+            {
+                connection.Open();
+
+            }
+            catch (Exception ex)
+            {
+                return "Error: " + ex.Message;
+            }
+
+            SqlCommand command = new SqlCommand(query, connection);
+
+            SqlDataReader reader = command.ExecuteReader();
+            while (reader.Read())
+            {
+                data.Append(reader["productName"].ToString() + " ");
+                data.Append(reader["price"].ToString() + " ");
+                data.AppendLine(reader["quantity"].ToString());
+
+            }
+            connection.Close();
+            if (data.ToString() != "")
+                return data.ToString();
+            else return failed;
+        }
+
+        public static string Edit(string name, string newName, double newPrice, int newQuantity)
         {
             //response messages.
-            const String success = "Edit was successful";
-            const String failed = "Edit failed: product may not exist";
-            const String nameExists = "Edit failed: product name already exist";
-            
+            const string success = "Edit was successful";
+            const string failed = "Edit failed: product may not exist";
+            const string nameExists = "Edit failed: product name already exist";
+
             Product product = new Product();
-            
-            //to check if the product exists.
-            if (Search(name).Count != 0)
+
+            string updateQuery = $"update Products set productName = '{newName}', price = {newPrice}, quantity = {newQuantity} where productName = '{name}'";
+
+            try
             {
-                product = Search(name)[0];
-                //to check if the new name already exists on a diiferent product.
-                if (Search(newName).Count == 0 || (Search(newName).Count > 0 && name == newName))
-                {
-                    Search(name)[0].price = newPrice;
-                    Search(name)[0].quantity = newQuantity;
-                    Search(name)[0].name = newName; 
-                    return success;
-                }
-                else return nameExists;
-      
+                connection.Open();
+
             }
-            else return failed;
-       
+            catch (Exception ex)
+            {
+                return "Error: " + ex.Message;
+            }
+
+            try
+            {
+                SqlCommand command = new SqlCommand(updateQuery, connection);
+                command.ExecuteNonQuery();
+                connection.Close();
+                return success;
+            }
+            catch (Exception ex)
+            {
+                connection.Close();
+                return failed;
+            }
         }
 
-    public static String Delete(String name)
+        public static string Delete(string name)
         {
-            //response messages.
-            const String success = "Product deleted successfully";
-            const String failed = "delete failed: product may not exist";
-            // check if the product exist for deletion
-            if (Search(name).Count != 0) { products.Remove(Search(name)[0]); return success; }
-           
-            else return failed;
-         
+            ////response messages.
+            const string success = "Product deleted successfully";
+            const string failed = "delete failed: product may not exist";
+
+            try
+            {
+                connection.Open();
+
+            }
+            catch (Exception ex)
+            {
+                return "Error: " + ex.Message;
+            }
+
+            try
+            {
+                string deleteQuery = $"delete from Products where productName = '{name}'";
+                SqlCommand command = new SqlCommand(deleteQuery, connection);
+                command.ExecuteNonQuery();
+                connection.Close();
+                return success; 
+            }
+            catch (Exception ex)
+            {
+                connection.Close();
+                return failed;
+            }
+            
+
+
         }
- 
+
     }
 }
